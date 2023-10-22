@@ -16,7 +16,7 @@ bun dev
 
 ## Notes
 
-Initialise Prisma;
+- Initialise Prisma;
 
 ```bash
 npx prisma init
@@ -43,15 +43,21 @@ npx prisma migrate dev --name init
 npx prisma studio
 ```
 
-(Not recommended)
-
-- Also added endpoint for external users to use in app/api/todo/route.ts
+- `(Not recommended)` Also added endpoint for external users to use in app/api/todo/route.ts
   Api folder is special type and used for api calls only. route file is similar to page
   Creating GET POST function with export would be enough to expose our api.
-  To test this we need visit -> http://localhost:3000/api/todo
+  To test this we need to visit -> http://localhost:3000/api/todo
 
 - For authentication, we recommend to use [next-auth](https://next-auth.js.org/) with next.js
 
-- Deploy on Vercel
+## Deploy on Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Sign up with your Github account to [Vercel](https://vercel.com/new) and select the repo.
+
+- We only need to override build command to migrate our prisma schema. Change `next build` to `npx prisma generate && next build`
+
+- Also add your `DATABASE_URL` to `Environment Variables` section
+
+- After seeing Congratulations! we can test our app on [Todos-App](https://todos-nextjs-vert.vercel.app/)
+
+- Also Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
