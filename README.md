@@ -14,23 +14,44 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Initialise Prisma;
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npx prisma init
+```
 
-## Learn More
+- After initialising our prisma, we will have .env file and prisma folder in our root.
 
-To learn more about Next.js, take a look at the following resources:
+- `schema.prisma` is our place to write our schemas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Before migrating our schema to db, we have to update our DATABASE_URL in .env file.
+  We use [render](https://render.com/) to have a PostgreSQL instance that we can get external Database URL for our DATABASE_URL variable
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Also make sure we add .env file in `.gitignore`
 
-## Deploy on Vercel
+- Migrate our schema to db;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx prisma migrate dev --name init
+```
+
+- Open Prisma Studio to see our record in browser;
+
+```bash
+npx prisma studio
+```
+
+(Not recommended)
+
+- Also added endpoint for external users to use in app/api/todo/route.ts
+  Api folder is special type and used for api calls only. route file is similar to page
+  Creating GET POST function with export would be enough to expose our api.
+  To test this we need visit -> http://localhost:3000/api/todo
+
+- For authentication, we recommend to use [next-auth](https://next-auth.js.org/) with next.js
+
+- Deploy on Vercel
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
